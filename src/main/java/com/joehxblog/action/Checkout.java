@@ -18,13 +18,15 @@ public class Checkout {
 
     public RentalAgreement checkout(String toolCode, int rentalDayCount, int discountPercent, LocalDate checkoutDate) {
         var tool = tools.getTool(toolCode);
+        var chargeDays = calculateChargeDays(checkoutDate, rentalDayCount, tool.type());
 
         return new RentalAgreement(
                 tool,
                 rentalDayCount,
                 discountPercent,
                 checkoutDate,
-                calculateDueDate(checkoutDate, rentalDayCount)
+                calculateDueDate(checkoutDate, rentalDayCount),
+                chargeDays
         );
     }
 
