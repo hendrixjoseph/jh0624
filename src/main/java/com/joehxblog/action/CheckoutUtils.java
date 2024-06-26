@@ -24,7 +24,11 @@ public class CheckoutUtils {
     }
 
     public static int calculateDiscountAmount(int prediscountCharge, int discountPercent) {
-        return prediscountCharge * discountPercent / 100;
+        var discountAmount = prediscountCharge * discountPercent;
+
+        var round = discountAmount % 100 > 49;
+
+        return discountAmount / 100 + (round ? 1 : 0);
     }
 
     public static boolean isWeekend(LocalDate date) {
