@@ -21,4 +21,8 @@ public class Tools {
         )
         .forEach(tool -> this.tools.put(tool.code(), tool));
     }
+
+    public Tool getTool(String toolCode) {
+        return this.tools.get(toolCode);
+    }
 }
