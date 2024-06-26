@@ -21,7 +21,7 @@ public record RentalAgreement(
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM/dd/yy");
 
     private String moneyFormat(int money) {
-        return String.format("$%,d.%02d", money / 10, money % 100);
+        return String.format("$%,d.%02d", money / 100, money % 100);
     }
 
     @Override
