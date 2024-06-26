@@ -21,6 +21,7 @@ public class Checkout {
         var chargeDays = calculateChargeDays(checkoutDate, rentalDayCount, tool.type());
         var prediscountCharge = chargeDays * tool.type().dailyCharge();
         var discountAmount = prediscountCharge * discountPercent / 100;
+        var finalCharge = prediscountCharge - discountAmount;
 
         return new RentalAgreement(
                 tool,
@@ -30,7 +31,8 @@ public class Checkout {
                 calculateDueDate(checkoutDate, rentalDayCount),
                 chargeDays,
                 prediscountCharge,
-                discountAmount
+                discountAmount,
+                finalCharge
         );
     }
 
