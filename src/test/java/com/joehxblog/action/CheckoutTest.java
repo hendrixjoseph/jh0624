@@ -1,5 +1,6 @@
 package com.joehxblog.action;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -30,6 +31,18 @@ class CheckoutTest {
         );
 
         System.out.println(rentalAgreement);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+      "0, 10, Rental Day Count must be 1 or greater.",
+      "1, -10, Discount Percent must be between 0 and 100.",
+      "1, 101, Discount Percent must be between 0 and 100."
+
+    })
+    void testThrowsException(int rentalDays, int discount, String expectedMessage) {
+        var exception = assertThrows(RuntimeException.class, () -> checkout.checkout("", rentalDays, discount, LocalDate.now()));
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
 
