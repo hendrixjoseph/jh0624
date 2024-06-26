@@ -7,8 +7,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.stream.IntStream;
 
-import static com.joehxblog.action.CheckoutUtils.calculateChargeDays;
-import static com.joehxblog.action.CheckoutUtils.calculateDueDate;
+import static com.joehxblog.action.CheckoutUtils.*;
 import static java.time.DayOfWeek.*;
 
 public class Checkout {
@@ -37,7 +36,7 @@ public class Checkout {
 
         var tool = tools.getTool(toolCode);
         var chargeDays = calculateChargeDays(checkoutDate, rentalDayCount, tool.type());
-        var prediscountCharge = chargeDays * tool.type().dailyCharge();
+        var prediscountCharge = calculatePrediscountCharge(chargeDays, tool.type().dailyCharge());
         var discountAmount = prediscountCharge * discountPercent / 100;
         var finalCharge = prediscountCharge - discountAmount;
 

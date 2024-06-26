@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.time.LocalDate;
 
 import static com.joehxblog.action.CheckoutUtils.*;
+import static com.joehxblog.action.CheckoutUtils.calculatePrediscountCharge;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CheckoutUtilsTest {
@@ -91,5 +92,17 @@ class CheckoutUtilsTest {
         var actualChargeDays = calculateChargeDays(date, rentalDayCount, toolType);
 
         assertEquals(expectedChargeDays, actualChargeDays);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            " 1, 199,  199",
+            " 2, 199,  398",
+            "10, 199, 1990"
+    })
+    void testCalculatePrediscountCharge(int chargeDays, int dailyCharge, int expectedPrediscountCharge) {
+        var actualPrediscountCharge = calculatePrediscountCharge(chargeDays, dailyCharge);
+
+        assertEquals(expectedPrediscountCharge, actualPrediscountCharge);
     }
 }

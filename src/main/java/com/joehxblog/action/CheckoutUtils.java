@@ -19,6 +19,10 @@ public class CheckoutUtils {
                 .count();
     }
 
+    public static int calculatePrediscountCharge(int chargeDays, int dailyCharge) {
+        return chargeDays * dailyCharge;
+    }
+
     public static boolean isWeekend(LocalDate date) {
         var weekday = date.getDayOfWeek();
 
