@@ -24,6 +24,10 @@ public record RentalAgreement(
         return String.format("$%,d.%02d", money / 100, money % 100);
     }
 
+    public void printToConsole() {
+        System.out.println(this.toString());
+    }
+
     @Override
     public String toString() {
         return new StringJoiner("\n")
