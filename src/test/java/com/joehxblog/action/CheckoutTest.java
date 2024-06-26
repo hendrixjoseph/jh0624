@@ -4,6 +4,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
+import java.util.Objects;
+import java.util.StringJoiner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,21 +15,64 @@ class CheckoutTest {
 
     @ParameterizedTest
     @CsvSource({
-            "LADW, 2020, 7, 2, 3, 10",
-            "CHNS, 2015, 7, 2, 5, 0",
-            "JAKD, 2015, 9, 3, 6, 0",
-            "JAKR, 2015, 7, 2, 9, 0",
-            "JAKR, 2020, 7, 2, 4, 50"
+    /* inputs */  "LADW, 2020, 7, 2, 3, 10," +
+    /* outputs */ "2020, 7, 5, 2, 398, 40, 358",
+
+    /* inputs */  "CHNS, 2015, 7, 2, 5, 0," +
+    /* outputs */ "2015, 7, 7, 3, 447, 0, 447",
+
+    /* inputs */ "JAKD, 2015, 9, 3, 6, 0," +
+    /* outputs */ "2015, 9, 9, 3, 897, 0, 897",
+
+    /* inputs */ "JAKR, 2015, 7, 2, 9, 0," +
+    /* outputs */ "2015, 7, 11, 6, 1794, 0, 1794",
+
+    /* inputs */ "JAKR, 2020, 7, 2, 4, 50," +
+    /* outputs */ "2020, 7, 6, 1, 299, 150, 149"
     })
-    void testCheckout(String toolCode, int year, int month, int day, int rentalDays, int discount) {
-        var rentalAgreement = checkout.checkout(
+    void testCheckout(
+            /* inputs */
+            String toolCode,
+            int checkoutYear,
+            int checkoutMonth,
+            int checkoutDay,
+            int rentalDays,
+            int discount,
+
+            /* outputs */
+            int dueDateYear,
+            int dueDateMonth,
+            int dueDateDay,
+            int expectedChargeDays,
+            int expectedPrediscountCharge,
+            int expectedDiscountAmount,
+            int expectedFinalCharge
+            ) {
+
+        var checkoutDate = LocalDate.of(checkoutYear, checkoutMonth, checkoutDay);
+
+        var actualRentalAgreement = checkout.checkout(
                 toolCode,
                 rentalDays,
                 discount,
-                LocalDate.of(year, month, day)
+                checkoutDate
         );
 
-        System.out.println(rentalAgreement);
+        var expectedDueDate = LocalDate.of(dueDateYear, dueDateMonth, dueDateDay);
+
+        var expectedRentalAgreement = new RentalAgreement(
+                checkout.getTools().getTool(toolCode),
+                rentalDays,
+                discount,
+                checkoutDate,
+                expectedDueDate,
+                expectedChargeDays,
+                expectedPrediscountCharge,
+                expectedDiscountAmount,
+                expectedFinalCharge
+        );
+
+        assertEquals(expectedRentalAgreement, actualRentalAgreement);
     }
 
     @ParameterizedTest
