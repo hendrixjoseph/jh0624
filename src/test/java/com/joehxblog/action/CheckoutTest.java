@@ -105,12 +105,17 @@ class CheckoutTest {
         assertFalse(checkout.isWeekend(date));
     }
 
-    @Test
-    void testCalculateChargeDays() {
-        var date = LocalDate.of(2024, 6, 24);
-        var toolType = checkout.getTools().getTool("CHNS").type();
-        var rentalDayCount = 5;
-        var expectedChargeDays = 5;
+    @ParameterizedTest
+    @CsvSource({
+      "2024, 6, 24, CHNS, 5, 5",
+      "2024, 6, 20, CHNS, 5, 3",
+      "2024, 6, 20, LADW, 5, 5",
+      "2024, 7,  1, LADW, 5, 4",
+      "2024, 6, 28, JAKR, 7, 4"
+    })
+    void testCalculateChargeDays(int year, int month, int day, String toolCode, int rentalDayCount, int expectedChargeDays) {
+        var date = LocalDate.of(year, month, day);
+        var toolType = checkout.getTools().getTool(toolCode).type();
 
         var actualChargeDays = checkout.calculateChargeDays(date, rentalDayCount, toolType);
 
