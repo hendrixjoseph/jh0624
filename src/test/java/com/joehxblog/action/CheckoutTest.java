@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
@@ -86,5 +87,21 @@ class CheckoutTest {
         var date = LocalDate.of(year, month, day);
 
         assertFalse(checkout.isHoliday(date));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {22, 23})
+    void testIsWeekend(int day) {
+        var date = LocalDate.of(2024, 6, day);
+
+        assertTrue(checkout.isWeekend(date));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {24, 25, 26, 27, 28})
+    void testIsNotWeekend(int day) {
+        var date = LocalDate.of(2024, 6, day);
+
+        assertFalse(checkout.isWeekend(date));
     }
 }
