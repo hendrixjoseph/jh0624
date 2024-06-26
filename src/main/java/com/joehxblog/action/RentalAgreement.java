@@ -9,12 +9,9 @@ public record RentalAgreement(
         Tool tool,
         int rentalDays,
         int discountPercent,
-        LocalDate checkoutDate
+        LocalDate checkoutDate,
+        LocalDate dueDate
 ) {
-
-    public LocalDate dueDate() {
-        return this.checkoutDate.plusDays(rentalDays);
-    }
 
     private String moneyFormat(int money) {
         return "$" + money / 10 + "." + money % 100;

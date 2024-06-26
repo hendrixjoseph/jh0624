@@ -12,7 +12,12 @@ public class Checkout {
                 tools.getTool(toolCode),
                 rentalDayCount,
                 discountPercent,
-                checkoutDate
+                checkoutDate,
+                calculateDueDate(checkoutDate, rentalDayCount)
         );
+    }
+
+    private LocalDate calculateDueDate(LocalDate checkoutDate, int rentalDayCount) {
+        return checkoutDate.plusDays(rentalDayCount);
     }
 }
