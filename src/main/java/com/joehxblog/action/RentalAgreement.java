@@ -12,6 +12,10 @@ public record RentalAgreement(
         LocalDate checkoutDate
 ) {
 
+    public LocalDate dueDate() {
+        return this.checkoutDate.plusDays(rentalDays);
+    }
+
     @Override
     public String toString() {
         return new StringJoiner("\n")
@@ -20,7 +24,7 @@ public record RentalAgreement(
                 .add("Tool brand: " + tool.brand())
                 .add("Rental days: " + rentalDays)
                 .add("Check out date: " + checkoutDate.toString())
-                .add("Due date: ")
+                .add("Due date: " + dueDate())
                 .add("Daily rental charge: ")
                 .add("Charge days: ")
                 .add("Pre-discount charge: ")
