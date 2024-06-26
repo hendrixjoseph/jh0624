@@ -17,6 +17,14 @@ public class Checkout {
     }
 
     public RentalAgreement checkout(String toolCode, int rentalDayCount, int discountPercent, LocalDate checkoutDate) {
+        if (rentalDayCount < 1) {
+            throw new RuntimeException("Rental Day Count must be 1 or greater.");
+        }
+
+        if (discountPercent < 0 || discountPercent > 100) {
+            throw new RuntimeException("Discount Percent must be between 0 and 100.");
+        }
+
         var tool = tools.getTool(toolCode);
         var chargeDays = calculateChargeDays(checkoutDate, rentalDayCount, tool.type());
         var prediscountCharge = chargeDays * tool.type().dailyCharge();
