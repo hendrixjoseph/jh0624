@@ -3,7 +3,6 @@ package com.joehxblog.action;
 import com.joehxblog.entity.ToolType;
 import com.joehxblog.entity.Tools;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.stream.IntStream;
@@ -44,7 +43,9 @@ public class Checkout {
     }
 
     public boolean isLaborDay(LocalDate date) {
-        return date.getDayOfMonth() < 8 && date.getDayOfWeek() == MONDAY;
+        return date.getMonth() == Month.SEPTEMBER
+            && date.getDayOfMonth() < 8
+            && date.getDayOfWeek() == MONDAY;
     }
 
     public boolean isIndependenceDay(LocalDate date) {
