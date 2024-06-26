@@ -1,9 +1,7 @@
 package com.joehxblog.entity;
 
-public class ToolType {
-    private String name;
-    private int dailyCharge;
-    private boolean weekdayCharge;
-    private boolean weekendCharge;
-    private boolean holidayCharge;
+public record ToolType(String name, int dailyCharge, boolean weekdayCharge, boolean weekendCharge, boolean holidayCharge) {
+    public ToolType(String name, int dailyCharge, boolean weekendCharge, boolean holidayCharge) {
+        this(name, dailyCharge, true, weekendCharge, holidayCharge);
+    }
 }
