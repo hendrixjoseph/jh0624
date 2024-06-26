@@ -1,5 +1,6 @@
 package com.joehxblog.action;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -73,6 +74,14 @@ class CheckoutTest {
         );
 
         assertEquals(expectedRentalAgreement, actualRentalAgreement);
+    }
+
+    @Test
+    void test1Special() {
+        var exception = assertThrows(RuntimeException.class, () ->
+                checkout.checkout("JAKR", 5, 101, LocalDate.of(2015, 9, 3)));
+
+        assertEquals("Discount Percent must be between 0 and 100.", exception.getMessage());
     }
 
     @ParameterizedTest
