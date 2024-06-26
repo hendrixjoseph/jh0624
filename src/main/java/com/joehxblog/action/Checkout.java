@@ -10,7 +10,15 @@ import java.util.stream.IntStream;
 import static java.time.DayOfWeek.*;
 
 public class Checkout {
-    private final Tools tools = new Tools();
+    private final Tools tools;
+
+    public Checkout() {
+        this(new Tools());
+    }
+
+    public Checkout(Tools tools) {
+        this.tools = tools;
+    }
 
     public Tools getTools() {
         return this.tools;
