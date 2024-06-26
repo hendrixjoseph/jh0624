@@ -105,4 +105,20 @@ class CheckoutUtilsTest {
 
         assertEquals(expectedPrediscountCharge, actualPrediscountCharge);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            " 100,  10,  10",
+            " 399,  10,  40",
+            " 316,  10,  32",
+            " 315,  10,  32",
+            " 314,  10,  31",
+            "2999,  10, 300",
+            " 342, 100, 342"
+    })
+    void testCalculateDiscountAmount(int prediscountCharge, int discountPercent, int expectedDiscountAmount) {
+        var actualDiscountAmount = calculateDiscountAmount(prediscountCharge, discountPercent);
+
+        assertEquals(expectedDiscountAmount, actualDiscountAmount);
+    }
 }

@@ -23,6 +23,10 @@ public class CheckoutUtils {
         return chargeDays * dailyCharge;
     }
 
+    public static int calculateDiscountAmount(int prediscountCharge, int discountPercent) {
+        return prediscountCharge * discountPercent / 100;
+    }
+
     public static boolean isWeekend(LocalDate date) {
         var weekday = date.getDayOfWeek();
 
