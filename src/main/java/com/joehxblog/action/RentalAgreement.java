@@ -16,6 +16,10 @@ public record RentalAgreement(
         return this.checkoutDate.plusDays(rentalDays);
     }
 
+    private String moneyFormat(int money) {
+        return "$" + money / 10 + "." + money % 100;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner("\n")
@@ -23,9 +27,9 @@ public record RentalAgreement(
                 .add("Tool type: " + tool.type().name())
                 .add("Tool brand: " + tool.brand())
                 .add("Rental days: " + rentalDays)
-                .add("Check out date: " + checkoutDate.toString())
+                .add("Check out date: " + checkoutDate)
                 .add("Due date: " + dueDate())
-                .add("Daily rental charge: ")
+                .add("Daily rental charge: "  + moneyFormat(tool.type().dailyCharge()))
                 .add("Charge days: ")
                 .add("Pre-discount charge: ")
                 .add("Discount percent: " + discountPercent + "%")
