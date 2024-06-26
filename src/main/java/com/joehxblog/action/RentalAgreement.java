@@ -12,7 +12,8 @@ public record RentalAgreement(
         LocalDate checkoutDate,
         LocalDate dueDate,
         int chargeDays,
-        int prediscountCharge
+        int prediscountCharge,
+        int discountAmount
 ) {
 
     private String moneyFormat(int money) {
@@ -32,7 +33,7 @@ public record RentalAgreement(
                 .add("Charge days: " + chargeDays)
                 .add("Pre-discount charge: " + moneyFormat(prediscountCharge))
                 .add("Discount percent: " + discountPercent + "%")
-                .add("Discount amount: ")
+                .add("Discount amount: " + moneyFormat(discountAmount))
                 .add("Final charge: ")
                 .toString();
     }
