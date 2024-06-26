@@ -10,7 +10,11 @@ import java.util.stream.IntStream;
 import static java.time.DayOfWeek.*;
 
 public class Checkout {
-    private Tools tools = new Tools();
+    private final Tools tools = new Tools();
+
+    public Tools getTools() {
+        return this.tools;
+    }
 
     public RentalAgreement checkout(String toolCode, int rentalDayCount, int discountPercent, LocalDate checkoutDate) {
         var tool = tools.getTool(toolCode);
@@ -27,8 +31,8 @@ public class Checkout {
     public int calculateChargeDays(LocalDate checkoutDate, int rentalDayCount, ToolType toolType) {
         return (int) IntStream.range(0, rentalDayCount)
                 .mapToObj(checkoutDate::plusDays)
-                .filter(date -> !toolType.weekendCharge() || isWeekend(date))
-                .filter(date -> !toolType.holidayCharge() || isHoliday(date))
+                .filter(date -> toolType.weekendCharge() || !isWeekend(date))
+                .filter(date -> toolType.holidayCharge() || !isHoliday(date))
                 .count();
     }
 

@@ -104,4 +104,16 @@ class CheckoutTest {
 
         assertFalse(checkout.isWeekend(date));
     }
+
+    @Test
+    void testCalculateChargeDays() {
+        var date = LocalDate.of(2024, 6, 24);
+        var toolType = checkout.getTools().getTool("CHNS").type();
+        var rentalDayCount = 5;
+        var expectedChargeDays = 5;
+
+        var actualChargeDays = checkout.calculateChargeDays(date, rentalDayCount, toolType);
+
+        assertEquals(expectedChargeDays, actualChargeDays);
+    }
 }
