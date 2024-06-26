@@ -18,7 +18,7 @@ public record RentalAgreement(
 ) {
 
     private String moneyFormat(int money) {
-        return "$" + money / 10 + "." + money % 100;
+        return String.format("$%,d.%02d", money / 10, money % 100);
     }
 
     @Override
