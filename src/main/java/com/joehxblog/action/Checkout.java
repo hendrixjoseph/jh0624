@@ -11,6 +11,7 @@ public class Checkout {
         return new RentalAgreement(
                 tools.getTool(toolCode),
                 rentalDayCount,
+                discountPercent,
                 checkoutDate
         );
     }
